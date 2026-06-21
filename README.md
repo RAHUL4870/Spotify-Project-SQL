@@ -209,7 +209,7 @@ SELECT
     track,
     views
 FROM spotify
-WHERE artist = 'Gorillaz'         --- time et=7.97 ms and pt=0.112ms
+WHERE artist = 'Gorillaz'         --- time et=5.747 ms and pt=0.162ms
 AND most_played_on = 'Youtube'
 ORDER BY stream DESC
 LIMIT 25;
@@ -224,7 +224,7 @@ ON spotify (artist);
 EXPLAIN ANALYZE
 SELECT 
     artist,
-    track,
+    track,      --et=0.153 ms and pt=0.152ms
     views
 FROM spotify
 WHERE artist = 'Gorillaz'
