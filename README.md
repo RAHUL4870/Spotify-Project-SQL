@@ -198,9 +198,40 @@ Here’s an updated section for your **Spotify Advanced SQL Project and Query Op
 ---
 
 ## Query Optimization Technique 
+For exmaple the code to optimize the query
 
 To improve query performance, we carried out the following optimization process:
+```sql
+-- Check query performance before index
+EXPLAIN ANALYZE
+SELECT 
+    artist,
+    track,
+    views
+FROM spotify
+WHERE artist = 'Gorillaz'         --- time et=7.97 ms and pt=0.112ms
+AND most_played_on = 'Youtube'
+ORDER BY stream DESC
+LIMIT 25;
 
+
+-- Create index to optimize the query
+CREATE INDEX artist_index 
+ON spotify (artist);
+
+
+-- Check query performance after index
+EXPLAIN ANALYZE
+SELECT 
+    artist,
+    track,
+    views
+FROM spotify
+WHERE artist = 'Gorillaz'
+AND most_played_on = 'Youtube'
+ORDER BY stream DESC
+LIMIT 25;
+```
 - **Initial Query Performance Analysis Using `EXPLAIN`**
     - We began by analyzing the performance of a query using the `EXPLAIN` function.
     - The query retrieved tracks based on the `artist` column, and the performance metrics were as follows:
